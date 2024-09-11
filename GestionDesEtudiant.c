@@ -20,7 +20,7 @@
 const char listeD[3][9] = {"physique", "math", "chimie"};
 
   etudiant etudiants[max];
-int numTotal = 0;
+int numTotal = 10;
 
 int chercher(char cni[]) {
 
@@ -58,23 +58,17 @@ void ajoute() {
         printf("Entrez la date de naissance (YYYY-MM-DD): ");
         scanf("%s", e.dateNaissance);
      
-         printf("pour le departement:enter 1 pour physique - 2 pour math - 3 pour chimie ");
+         printf("pour les departement:enter 1 pour physique - 2 pour math - 3 pour chimie ");
 
         scanf("%d", &x);
          strcpy(e.departement, listeD[x-1]); 
 
-        printf("Entrez la premiere note: ");
+        printf("Entrez la  note GENERALE: ");
 
-         scanf("%f", &nt1);
+         scanf("%f", &e.ntGenerale );
 
-        printf("Entrez la deuxieme note: ");
-        scanf("%f", &nt2 );
 
-     printf("Entrez la troisieme note: ");
-
-        scanf("%f",  &nt3);
-
-        e.ntGenerale = (nt1 + nt3 + nt2) / 3.0;
+        
 
         etudiants[numTotal] = e;
         numTotal++;
@@ -109,30 +103,28 @@ void modifier() {
 
     int res = chercher(cni);
     if (res != -1) {
-         etudiant *e1 = &etudiants[res];
-        float nt1, nt2, nt3;
+        
+        
+        printf("modifier le nom actuel: %s: ", etudiants[res].nom);
+        scanf("%s", etudiants[res].nom);
 
-        printf("modifier le nom actuel: %s: ", e1->nom);
-        scanf("%s", e1->nom);
+        printf("modifier le prenom actuel: %s: ", etudiants[res].prenom);
+        scanf("%s", etudiants[res].prenom);
 
-        printf("modifier le prenom actuel: %s: ", e1->prenom);
-        scanf("%s", e1->prenom);
+        int x;
+
+        printf("modifier le departement actuel:enter 1 pour physique - 2 pour math - 3 pour chimie  ",&x);
+
+        strcpy(etudiants[res].departement,listeD[x-1]);
+         
+
+        scanf("%s", etudiants[res].departement);
+
+        printf("modifier la note generale: ");
+        scanf("%f", &etudiants[res].ntGenerale);
+
 
         
-
-        printf("modifier le departement actuel: %s: ", e1->departement);
-        scanf("%s", e1->departement);
-
-        printf("modifier la premiere nt: ");
-        scanf("%f", &nt1);
-
-        printf("modifier la deuxieme nt: ");
-        scanf("%f", &nt2);
-
-        printf("modifier la troisieme nt: ");
-        scanf("%f", &nt3);
-
-        e1->ntGenerale = (nt1 + nt2 + nt3) / 3.0;
 
         printf("etudiant modifie avec succes.\n");
     } else {
@@ -173,7 +165,7 @@ void afficheOne(int y) {
 
     void afficheDepartement(){
         int x;
-        printf("pour le departement:enter 1 pour physique - 2 pour math - 3 pour chimie ");
+        printf("pour les departement:enter 1 pour physique - 2 pour math - 3 pour chimie ");
         scanf("%d", &x);
         for(int i=0 ; i<numTotal ; i++){
 
@@ -213,10 +205,10 @@ void afficheOne(int y) {
                 }
 
             }
-            printf("moyenne de departement de physique :%f \n" , MDP/NEDP);
+            printf("\n\nmoyenne de departement de physique :%f \n" , MDP/NEDP);
             printf("moyenne de departement de math :%f \n" , MDM/NEDM);
             printf("moyenne de departement de chimie :%f \n" , MDC/NEDC);
-            printf("moyenne de departement de unversite :%f \n" , MEU/numTotal);
+            printf("moyenne  de unversite :%f \n\n\n" , MEU/numTotal);
             
 
             
@@ -234,7 +226,7 @@ void afficheOne(int y) {
         etudiants[j] = key;
     }
 
-    for(int i = 1; i < numTotal; ++i) {
+    for(int i = 0; i < numTotal; ++i) {
 
          afficheOne(i);
 
@@ -251,7 +243,7 @@ void afficheTrieParMoyG() {
         etudiants[j] = key;
     }
 
-    for(int i = 1; i < numTotal; ++i) {
+    for(int i = 0; i < numTotal; ++i) {
 
          afficheOne(i);
 
@@ -272,12 +264,12 @@ void afficheTrieParState() {
             y9[pasReussiteCount++] = i;
         }
     }
-     printf("l'etudiant qui reussit ")
+     printf("\n\n\nl'etudiant qui reussit \n ");
     for(int i=0;i<reussiteCount;i++){
 
         afficheOne(x10[i]);
     }
- printf("\n \n \n l'etudiant qui ne reussit pas")
+ printf("\n \n \n l'etudiant qui ne reussit pas \n");
     for(int i=0;i<pasReussiteCount;i++){
         afficheOne(y9[i]);
     }
@@ -285,7 +277,205 @@ void afficheTrieParState() {
 
 
 }
+void Statistiques(){
+    printf(" le nombre total d'etudiants inscrits : %d  \n" , numTotal);
+            int NEDP[2]={0};
+            int NEDM[2]={0};
+            int NEDC[2]={0};
+    for(int i=0 ; i<numTotal ;i++ ){
+                if(strcmp(etudiants[i].departement , listeD[0])==0){ //physique
+               
+                NEDP[0]++;
+                if (etudiants[i].ntGenerale>=10)
+                {
+                   NEDP[1]++;
+                }
+                
+
+                }
+                else if(strcmp(etudiants[i].departement , listeD[1])==0){ // math
+
+               
+                NEDM[0]++;
+                if (etudiants[i].ntGenerale>=10)
+                {
+                   NEDM[1]++;
+                }
+                }else if(strcmp(etudiants[i].departement , listeD[2])==0){
+                    
+                    NEDC[0]++;
+                    if (etudiants[i].ntGenerale>=10)
+                {
+                   NEDC[1]++;
+                }
+                }
+
+            }
+             printf("\n\n############################################## \n" );
+            printf("le nombre d'etudiants dans chaque departement \n" );
+            printf("  le nombre d'etudiants dans la departement de physique : %d \n" , NEDP[0] );
+            printf("  le nombre d'etudiants dans la departement de math : %d \n" ,NEDM[0]);
+            printf("  le nombre d'etudiants dans la departement de chimie : %d\n" ,NEDC[0]);
+
+
+            printf("\n\n############################################## \n" );
+             printf("le nombre d'etudiants reussit dans chaque departement \n" );
+            printf("  le nombre d'etudiants dans la departement de physique : %d \n" , NEDP[1] );
+            printf("  le nombre d'etudiants dans la departement de math : %d \n" ,NEDM[1]);
+            printf("  le nombre d'etudiants dans la departement de chimie : %d\n\n\n\n" ,NEDC[1]);
+
+}
+
+void StatistiquesSeuil(){
+       for (int i = 1; i < numTotal; ++i) {
+        etudiant key = etudiants[i];
+        int j = i;
+        while (j > 0 && etudiants[j - 1].ntGenerale> key.ntGenerale) {
+            etudiants[j] = etudiants[j - 1];
+            --j;
+        }
+        etudiants[j] = key;
+    }
+     float seuil;
+    
+    printf("\n entrer un certain seuil \n");
+    scanf("%f",&seuil);
+    printf("les etudiants ayant une moyenne generale superieure a  seuil %d. \n" ,seuil);
+    for (int i = 0; i < numTotal; i++)
+    {
+        if (etudiants[i].ntGenerale>=seuil)
+        {
+           afficheOne(i);
+        }
+        
+           
+    }
+   
+   
+
+}
+void etudiantReussi(){
+     int nombreReussi;
+    for (int i = 0; i < numTotal; i++)
+    {
+        
+        if (etudiants[i].ntGenerale>=10)
+        {
+          afficheOne(i);
+        }
+           
+    }
+   
+    
+
+
+
+}
+
+void les3PremierNotes(){
+       for (int i = 1; i < numTotal; ++i) {
+        etudiant key = etudiants[i];
+        int j = i;
+        while (j > 0 && etudiants[j - 1].ntGenerale> key.ntGenerale) {
+            etudiants[j] = etudiants[j - 1];
+            --j;
+        }
+        etudiants[j] = key;
+    }
+     
+    printf("\nles 3 etudiants ayant les meilleures 3 notes.\n");
+     afficheOne(numTotal-1);
+     afficheOne(numTotal-2);
+     afficheOne(numTotal-3);
+    
+   
+
+}
+void afficheStatistiques(){
+    int x;
+        printf("  1. Afficher les 3 étudiants ayant les meilleures notes\n");
+        printf("  2. Afficher le nombre d'étudiants dans chaque département ,et le nombre d'étudiants ayant réussi dans chaque département\n");
+        printf("  3. Afficher les étudiants ayant une moyenne générale supérieure à un certain seuil \n");
+         printf("  4. Afficher les étudiants selon leur statut de réussite \n");
+          scanf("%d" , &x);
+
+        switch (x) {
+            case 1:
+                les3PremierNotes();
+                break;
+            case 2:
+                Statistiques();
+                break;
+            case 3:
+                StatistiquesSeuil();
+                break;
+            case 4:
+               etudiantReussi();
+                break;
+                default:
+                
+                break;
+        }
+        
+        
+}
+
+
+void affiche(){
+    int x;
+        printf("  1. afficher un etudiant\n");
+        printf("  2. afficher les etudiant d'un departement\n");
+        printf("  3. afficher les etudiant  par order A _ Z \n");
+        printf("  4. afficher les etudiant  par les moyeenes\n");
+        printf("  5. afficher les etudiant  par state\n");
+       
+
+        scanf("%d" , &x);
+
+        switch (x) {
+            case 1:
+                afficherEtudiant();
+                break;
+            case 2:
+                afficheDepartement();
+                break;
+            case 3:
+                afficheTrieParNom();
+                break;
+            case 4:
+               afficheTrieParMoyG();
+                break;
+            case 5:
+               afficheTrieParState();
+                break;
+
+             default:
+                
+                break;
+        }
+
+
+
+
+
+
+}
+
+
+
+
 int main() {
+    etudiants[0] = (etudiant){"CNI001", "HAMZA", "HAMZA", "2000-01-15", "physique", 12.5};
+    etudiants[1] = (etudiant){"CNI002", "ISMAIL", "ISMAIL", "1999-04-22", "math", 14.3};
+    etudiants[2] = (etudiant){"CNI003", "AHMED", "AHMED", "2001-11-05", "chimie", 8.2};
+    etudiants[3] = (etudiant){"CNI004", "MOHAMMED", "MOHAMMED", "2000-03-09", "physique", 16.0};
+    etudiants[4] = (etudiant){"CNI005", "AMINA", "AMINA", "1998-07-25", "math", 10.8};
+    etudiants[5] = (etudiant){"CNI006", "OUSSAMA", "OUSSAMA", "2001-10-30", "chimie", 15.7};
+    etudiants[6] = (etudiant){"CNI007", "MERIEM", "MERIEM", "1999-12-12", "physique", 3.0};
+    etudiants[7] = (etudiant){"CNI008", "YASSIN", "YASSIN", "2000-08-20", "math", 11.0};
+    etudiants[8] = (etudiant){"CNI009", "YOUSSEF", "YOUSSEF", "1999-06-17", "chimie", 13.5};
+    etudiants[9] = (etudiant){"CNI010", "AYMEN", "AYMEN", "2001-02-14", "physique", 10};
+
     int choix;
 
     do {
@@ -293,12 +483,10 @@ int main() {
         printf("2. afficher un etudiant\n");
         printf("3. supprimer un etudiant\n");
         printf("4. modifier un etudiant\n");
-         printf("5. pour affiche les moyennes generale \n");
-         printf("6. afficher un etudiant par departement\n");
-         printf("7. pour affiche les etudiants par oreder de A à Z \n");
-         printf("8. pour affiche les etudiants par oreder de moyenne générale\n");
-          printf("10. pour affiche les etudiants par state \n");
-        printf("9. quitter\n");
+        printf("5. pour affiche les moyennes generale \n");
+        printf("6. pour affiche les affiche Statistiques\n");
+         
+        printf("7. quitter\n");
         printf("entrez votre choix: ");
         scanf("%d", &choix);
 
@@ -307,7 +495,7 @@ int main() {
                 ajoute();
                 break;
             case 2:
-                afficherEtudiant();
+                affiche();
                 break;
             case 3:
                 supprime();
@@ -318,26 +506,16 @@ int main() {
             case 5:
                 moyenneGenerale();
                 break;
+            
             case 6:
-                afficheDepartement();
-                break;
-            case 7:
-                afficheTrieParNom();
-                break;
-            case 8:
-                afficheTrieParMoyG();
-                break;
-            case 10:
-                afficheTrieParState();
-                break;
-            case 9:
-                printf(" fin de programme  \n");
-                break;
+                afficheStatistiques();
+                
+                
             default:
                 
                 break;
         }
-    } while (choix != 5);
+    } while (choix != 7);
 
     return 0;
 }
