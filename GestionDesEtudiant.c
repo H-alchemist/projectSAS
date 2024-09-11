@@ -20,8 +20,9 @@
 const char listeD[3][9] = {"physique", "math", "chimie"};
 
   etudiant etudiants[max];
+  
 int numTotal = 10;
-
+// chercher par CNI
 int chercher(char cni[]) {
 
     for (int i = 0; i < numTotal; i++) {
@@ -37,14 +38,14 @@ void ajoute() {
 
          etudiant e;
 
-        float nt1, nt2, nt3;
+        
         int x;
 
         printf("Entrez le cni: ");
 
         scanf("%s", e.cni);
 
-        if (chercher(e.cni) != -1) {
+        if (chercher(e.cni) != -1) { 
             printf("cette cni deja existe .\n");
             return;
         }
@@ -176,39 +177,39 @@ void afficheOne(int y) {
     }
 
         void  moyenneGenerale(){
-            float MDP=0;
-            int NEDP=0;
-            float MDM=0;
-            int NEDM=0;
-            float MDC=0;
-            int NEDC=0;
-            float MEU=0;
+            float MDPhysique=0;
+            int NEDPhysique=0;
+            float MDMath=0;
+            int NEDMath=0;
+            float MDChimie=0;
+            int NEDChimie=0;
+            float MEUniversitie=0;
             
             
 
             for(int i=0 ; i<numTotal ;i++ ){
                 if(strcmp(etudiants[i].departement , listeD[0])==0){ //physique
-                MDP+=etudiants[i].ntGenerale;
-                MEU+=etudiants[i].ntGenerale;
-                NEDP++;
+                MDPhysique+=etudiants[i].ntGenerale;
+                MEUniversitie+=etudiants[i].ntGenerale;
+                NEDPhysique++;
 
                 }
                 else if(strcmp(etudiants[i].departement , listeD[1])==0){ // math
 
-                MDM+=etudiants[i].ntGenerale;
-                MEU+=etudiants[i].ntGenerale;
-                NEDM++;
+                MDMath+=etudiants[i].ntGenerale;
+                MEUniversitie+=etudiants[i].ntGenerale;
+                NEDMath++;
                 }else{
-                    MDC+=etudiants[i].ntGenerale;
-                    MEU+=etudiants[i].ntGenerale;
-                    NEDC++;
+                    MDChimie+=etudiants[i].ntGenerale;
+                    MEUniversitie+=etudiants[i].ntGenerale;
+                    NEDChimie++;
                 }
 
             }
-            printf("\n\nmoyenne de departement de physique :%f \n" , MDP/NEDP);
-            printf("moyenne de departement de math :%f \n" , MDM/NEDM);
-            printf("moyenne de departement de chimie :%f \n" , MDC/NEDC);
-            printf("moyenne  de unversite :%f \n\n\n" , MEU/numTotal);
+            printf("\n\nmoyenne de departement de physique :%f \n" , MDPhysique/NEDPhysique);
+            printf("moyenne de departement de math :%f \n" , MDMath/NEDMath);
+            printf("moyenne de departement de chimie :%f \n" , MDChimie/NEDChimie);
+            printf("moyenne  de unversite :%f \n\n\n" , MEUniversitie/numTotal);
             
 
             
@@ -256,7 +257,7 @@ void afficheTrieParState() {
     int reussiteCount = 0;
     int pasReussiteCount = 0;
 
-    // Separate students into passed and failed
+    
     for (size_t i = 0; i < numTotal; ++i) {
         if (etudiants[i].ntGenerale >= 10) {
             x10[reussiteCount++] = i;
@@ -327,15 +328,7 @@ void Statistiques(){
 }
 
 void StatistiquesSeuil(){
-       for (int i = 1; i < numTotal; ++i) {
-        etudiant key = etudiants[i];
-        int j = i;
-        while (j > 0 && etudiants[j - 1].ntGenerale> key.ntGenerale) {
-            etudiants[j] = etudiants[j - 1];
-            --j;
-        }
-        etudiants[j] = key;
-    }
+       
      float seuil;
     
     printf("\n entrer un certain seuil \n");
